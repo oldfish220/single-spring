@@ -3,10 +3,14 @@ package cn.oldfish.springframework.beans.facotry.support;
 import cn.oldfish.springframework.beans.BeansException;
 import cn.oldfish.springframework.beans.facotry.BeanFactory;
 import cn.oldfish.springframework.beans.facotry.config.BeanDefinition;
+import cn.oldfish.springframework.beans.facotry.config.BeanPostProcessor;
+import cn.oldfish.springframework.beans.facotry.config.ConfigurableBeanFactory;
 
-import java.beans.Beans;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
     @Override
     public Object getBean(String beanName) throws BeansException {
@@ -36,4 +40,14 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
     protected abstract BeanDefinition getBeanDefinition(String name);
 
     protected abstract Object createBean(String name, BeanDefinition beanDefinition, Object[] args);
+
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        this.beanPostProcessors.remove(beanPostProcessor);
+        this.beanPostProcessors.add(beanPostProcessor);
+    }
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return beanPostProcessors;
+    }
 }
