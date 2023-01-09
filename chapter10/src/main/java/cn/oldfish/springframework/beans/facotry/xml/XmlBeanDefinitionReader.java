@@ -17,12 +17,12 @@ import org.w3c.dom.NodeList;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class XmlDefinitionReader extends AbstractBeanDefinitionReader {
-    public XmlDefinitionReader(BeanDefinitionRegistry registry) {
+public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         super(registry);
     }
 
-    public XmlDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
         super(registry, resourceLoader);
     }
 
@@ -84,6 +84,8 @@ public class XmlDefinitionReader extends AbstractBeanDefinitionReader {
             String initMethod = bean.getAttribute("init-method");
             String destroyMethod = bean.getAttribute("destroy-method");
 
+            String beanScope = bean.getAttribute("scope");
+
             Class<?> clazz = Class.forName(className);
 
             // 优先级 id > name
@@ -98,6 +100,10 @@ public class XmlDefinitionReader extends AbstractBeanDefinitionReader {
             // 额外设置到 BeanDefinition 中
             beanDefinition.setInitMethodName(initMethod);
             beanDefinition.setDestroyMethodName(destroyMethod);
+
+            if (StrUtil.isNotEmpty(beanScope)) {
+                beanDefinition.setScope(beanScope);
+            }
 
             for (int j = 0; j < bean.getChildNodes().getLength(); j++) {
                 // 判断元素

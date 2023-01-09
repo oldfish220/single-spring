@@ -3,7 +3,7 @@ package cn.oldfish.springframework;
 import cn.hutool.core.io.IoUtil;
 import cn.oldfish.springframework.beans.UserService;
 import cn.oldfish.springframework.beans.facotry.support.DefaultListableBeanFactory;
-import cn.oldfish.springframework.beans.facotry.xml.XmlDefinitionReader;
+import cn.oldfish.springframework.beans.facotry.xml.XmlBeanDefinitionReader;
 import cn.oldfish.springframework.core.io.DefaultResourceLoader;
 import cn.oldfish.springframework.core.io.Resource;
 import org.junit.Before;
@@ -44,7 +44,7 @@ public class ApiTest {
     @Test
     public void xmlTest() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-        XmlDefinitionReader reader = new XmlDefinitionReader(beanFactory);
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         reader.loadBeanDefinitions("classpath:beans.xml");
         UserService userService = beanFactory.getBean("userService", UserService.class);
         System.out.println(userService.queryUserInfo());

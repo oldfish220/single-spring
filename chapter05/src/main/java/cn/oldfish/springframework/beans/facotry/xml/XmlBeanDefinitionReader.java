@@ -17,12 +17,12 @@ import org.w3c.dom.NodeList;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class XmlDefinitionReader extends AbstractBeanDefinitionReader {
-    public XmlDefinitionReader(BeanDefinitionRegistry registry) {
+public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         super(registry);
     }
 
-    public XmlDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
         super(registry, resourceLoader);
     }
 
