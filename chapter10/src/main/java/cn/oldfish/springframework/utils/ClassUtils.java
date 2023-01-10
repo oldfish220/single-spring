@@ -15,4 +15,12 @@ public class ClassUtils {
 
         return classLoader;
     }
+
+    public static boolean isCglibClass(Class<?> clazz) {
+        return (clazz != null && isCglibClassName(clazz.getName()));
+    }
+
+    public static boolean isCglibClassName(String className) {
+        return (className != null && className.contains("$$"));
+    }
 }
