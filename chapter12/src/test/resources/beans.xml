@@ -1,0 +1,18 @@
+<beans>
+
+    <bean id="userService" class="cn.oldfish.springframework.beans.UserService"/>
+
+    <bean class="cn.oldfish.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="beforeAdvice" class="cn.oldfish.springframework.beans.UserServiceBeforeAdvice"/>
+
+    <bean id="methodInterceptor" class="cn.oldfish.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="cn.oldfish.springframework.aop.aspectj.AspectJExpressionAdvisor">
+        <property name="expression" value="execution(* cn.oldfish.springframework.beans.IUserService.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+
+</beans>
